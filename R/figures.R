@@ -271,7 +271,7 @@ plot_assoc <- function(data, corr=NULL, corr.top=NULL, x.min, x.max, top.marker=
   data$r2[r2>=0.6 & r2<0.8 & !is.na(r2)] <- "0.6-0.8"
   data$r2[r2>=0.8 & r2<=1 & !is.na(r2)] <- "0.8-1.0" 
   data$r2 <- factor(data$r2, levels=c("miss", "0.0-0.2", "0.2-0.4", "0.4-0.6", "0.6-0.8", "0.8-1.0"))
-  
+   
   # Y-axis limit
   #ylim <- max(data$stats)+0.1*max(data$stats)
   if(!is.null(sig.thres) & type=="log10p"){ylim <- max(ylim, (-log10(sig.thres) + -log10(sig.thres)*0.1))}
