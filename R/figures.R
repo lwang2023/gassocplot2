@@ -861,6 +861,7 @@ stack_assoc_plot <- function(markers, z, corr=NULL, corr.top=NULL, traits, ylab=
     }else{
       data <- data.frame(marker=as.character(markers$marker), chr=as.integer(markers$chr), pos=as.integer(markers$pos), stats=as.numeric(z[,i]), stringsAsFactors=F)    
     }
+    print(ylim)
     marker.plot <- plot_assoc_stack(data, corr, corr.top, x.min, x.max, top.marker, ylab, type, labels, sig.thres, point.padding, nudge_x, nudge_y, ylim_prob1, ylim)
     legend <- g_legend(marker.plot)
     if(i==length(traits)){g <- plot_regional_gene_assoc(recombination.plot, marker.plot, gene.plot, traits[i], ngenes)}
