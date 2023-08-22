@@ -435,7 +435,7 @@ plot_assoc_combined <- function(recombination.plot, gene.plot, marker.plot, titl
 #' @import ggplot2 grid gridExtra gtable ggrepel
 #' @author James R Staley <jrstaley95@gmail.com>
 #' @export
-assoc_plot <- function(data, corr=NULL, corr.top=NULL, ylab=NULL, title=NULL, subtitle=NULL, type="log10p", x.min=NULL, x.max=NULL, top.marker=NULL, legend=TRUE, build=37, labels=NULL, sig.thres=NULL, point.padding=0.15, nudge_x=0, nudge_y=0, ylim_prob1=TRUE){
+assoc_plot <- function(data, corr=NULL, corr.top=NULL, ylab=NULL, title=NULL, subtitle=NULL, type="log10p", x.min=NULL, x.max=NULL, top.marker=NULL, legend=TRUE, build=37, labels=NULL, sig.thres=NULL, point.padding=0.15, nudge_x=0, nudge_y=0, ylim_prob1=TRUE, ylim=14){
   
   # Error messages
   if(!(type=="log10p" | type=="prob")) stop("the type of plot has to be either log10p or prob")
@@ -502,7 +502,7 @@ assoc_plot <- function(data, corr=NULL, corr.top=NULL, ylab=NULL, title=NULL, su
   
   # Marker plot
   if(type=="log10p"){ylab <- expression("-log"["10"]*paste("(",italic("p"),")"))}else{if(is.null(ylab)){ylab <- "Probability"}}  
-  marker.plot <- plot_assoc(data, corr, corr.top, x.min, x.max, top.marker, ylab, type, labels, sig.thres, point.padding, nudge_x, nudge_y, ylim_prob1)
+  marker.plot <- plot_assoc(data, corr, corr.top, x.min, x.max, top.marker, ylab, type, labels, sig.thres, point.padding, nudge_x, nudge_y, ylim_prob1, ylim)
   
   # Combined plot
   combined.plot <- plot_assoc_combined(recombination.plot, gene.plot, marker.plot, title, subtitle, ngenes, legend)
@@ -553,7 +553,7 @@ assoc_plot_save <- function(x, file, width=9, height=7, dpi=500){
 #' @import ggplot2 grid gridExtra gtable ggrepel
 #' @author James R Staley <jrstaley95@gmail.com>
 #' @export
-plot_assoc_stack <- function(data, corr=NULL, corr.top=NULL, x.min, x.max, top.marker=NULL, ylab, type="log10p", labels=NULL, sig.thres=NULL, point.padding=0.15, nudge_x=0, nudge_y=0, ylim_prob1=TRUE){
+plot_assoc_stack <- function(data, corr=NULL, corr.top=NULL, x.min, x.max, top.marker=NULL, ylab, type="log10p", labels=NULL, sig.thres=NULL, point.padding=0.15, nudge_x=0, nudge_y=0, ylim_prob1=TRUE, ylim=14){
   
   # Error messages
   if(is.null(corr) & is.null(corr.top)) stop("no correlation statistics were input")
@@ -789,7 +789,7 @@ add_g_legend <- function(g, legend){
 #' @import ggplot2 grid gridExtra gtable ggrepel
 #' @author James R Staley <jrstaley95@gmail.com>
 #' @export
-stack_assoc_plot <- function(markers, z, corr=NULL, corr.top=NULL, traits, ylab=NULL, type="log10p", x.min=NULL, x.max=NULL, top.marker=NULL, legend=TRUE, build=37, labels=NULL, sig.thres=NULL, point.padding=0.15, nudge_x=0, nudge_y=0, ylim_prob1=TRUE){
+stack_assoc_plot <- function(markers, z, corr=NULL, corr.top=NULL, traits, ylab=NULL, type="log10p", x.min=NULL, x.max=NULL, top.marker=NULL, legend=TRUE, build=37, labels=NULL, sig.thres=NULL, point.padding=0.15, nudge_x=0, nudge_y=0, ylim_prob1=TRUE, ylim=14){
   
   # Error messages
   if(!(type=="log10p" | type=="prob")) stop("the type of plot has to be either log10p or prob")
@@ -860,7 +860,7 @@ stack_assoc_plot <- function(markers, z, corr=NULL, corr.top=NULL, traits, ylab=
     }else{
       data <- data.frame(marker=as.character(markers$marker), chr=as.integer(markers$chr), pos=as.integer(markers$pos), stats=as.numeric(z[,i]), stringsAsFactors=F)    
     }
-    marker.plot <- plot_assoc_stack(data, corr, corr.top, x.min, x.max, top.marker, ylab, type, labels, sig.thres, point.padding, nudge_x, nudge_y, ylim_prob1)
+    marker.plot <- plot_assoc_stack(data, corr, corr.top, x.min, x.max, top.marker, ylab, type, labels, sig.thres, point.padding, nudge_x, nudge_y, ylim_prob1, ylim)
     legend <- g_legend(marker.plot)
     if(i==length(traits)){g <- plot_regional_gene_assoc(recombination.plot, marker.plot, gene.plot, traits[i], ngenes)}
     if(i<length(traits)){
