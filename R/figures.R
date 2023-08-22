@@ -217,7 +217,7 @@ plot_gene_fifteen <- function(gene.region, chr, x.min, x.max, stack=FALSE) {
 #' @import ggplot2 grid gridExtra gtable ggrepel
 #' @author James R Staley <jrstaley95@gmail.com>
 #' @export
-plot_assoc <- function(data, corr=NULL, corr.top=NULL, x.min, x.max, top.marker=NULL, ylab, type="log10p", labels=NULL, sig.thres=NULL, point.padding=0.15, nudge_x=0, nudge_y=0, ylim_prob1=TRUE){
+plot_assoc <- function(data, corr=NULL, corr.top=NULL, x.min, x.max, top.marker=NULL, ylab, type="log10p", labels=NULL, sig.thres=NULL, point.padding=0.15, nudge_x=0, nudge_y=0, ylim_prob1=TRUE, ylim=14){
   
   # Error messages
   if(is.null(corr) & is.null(corr.top)) stop("no correlation statistics were input")
@@ -273,7 +273,7 @@ plot_assoc <- function(data, corr=NULL, corr.top=NULL, x.min, x.max, top.marker=
   data$r2 <- factor(data$r2, levels=c("miss", "0.0-0.2", "0.2-0.4", "0.4-0.6", "0.6-0.8", "0.8-1.0"))
   
   # Y-axis limit
-  ylim <- max(data$stats)+0.1*max(data$stats)
+  #ylim <- max(data$stats)+0.1*max(data$stats)
   if(!is.null(sig.thres) & type=="log10p"){ylim <- max(ylim, (-log10(sig.thres) + -log10(sig.thres)*0.1))}
   if(type=="prob" & ylim_prob1){ylim <- max((max(data$stats)+0.1*max(data$stats)),1)}
   
